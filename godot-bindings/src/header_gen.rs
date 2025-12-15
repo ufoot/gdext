@@ -27,6 +27,10 @@ pub(crate) fn generate_rust_binding(in_h_path: &Path, out_rs_path: &Path) {
         .header(c_header_path)
         .parse_callbacks(Box::new(cargo_cfg))
         .prepend_enum_name(false)
+        // Disable layout tests because they are generated based on the host architecture but validated on the target.
+        // This causes failures when cross-compiling (e.g., from 64-bit host to 32-bit target) because struct sizes
+        // differ between pointer widths. See: https://github.com/godot-rust/gdext/issues/347.
+        .layout_tests(false)
         // Bindgen can generate wrong size checks for types defined as `__attribute__((aligned(__alignof__(struct {...}))))`,
         // which is how clang defines max_align_t: https://clang.llvm.org/doxygen/____stddef__max__align__t_8h_source.html.
         // Size checks seems to be fine on all the targets but `wasm32-unknown-emscripten`, disallowing web builds.
