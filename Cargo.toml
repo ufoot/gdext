@@ -19,7 +19,8 @@ members = [
 # regular dependencies. Sort alphabetically within each section; comments about a dependency come on the section header.
 [workspace.dependencies]
 # Related to godot-rust.
-gdextension-api = { version = "0.3.0", git = "https://github.com/godot-rust/godot4-prebuilt", branch = "release-v0.3" }
+# 32-bit support: using our fork. TODO: switch back to upstream once merged.
+gdextension-api = { version = "0.3.0", git = "https://github.com/ufoot/godot4-prebuilt", branch = "32bit-fix" }
 
 # Main library features.
 glam = { version = "0.30", features = ["debug-glam-assert"] }
@@ -54,3 +55,4 @@ pin-project-lite = { version = "0.2" }
 # "at most one `api-*` feature can be enabled". This is because by default, all Cargo features are enabled,
 # which isn't a setup we support. To address this, individual features can be enabled in the various
 # Cargo.toml files: https://www.jetbrains.com/help/rust/rust-cfg-support.html#enable-disable-feature-manually.
+
